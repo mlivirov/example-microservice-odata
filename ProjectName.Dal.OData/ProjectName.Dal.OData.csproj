@@ -1,0 +1,21 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>netcoreapp2.1</TargetFramework>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\ProjectName.Dal.Core\ProjectName.Dal.Core.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Reference Include="Simple.OData.Client.Core, Version=5.5.0.0, Culture=neutral, PublicKeyToken=null">
+        <HintPath>..\..\..\..\Users\Max Livirov\.nuget\packages\simple.odata.v4.client\5.5.0\lib\netstandard2.0\Simple.OData.Client.Core.dll</HintPath>
+      </Reference>
+    </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="2.1.1" />
+    </ItemGroup>
+
+</Project>

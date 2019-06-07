@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>netcoreapp2.1</TargetFramework>
+        <AssemblyName>ProjectName.Dal.Core</AssemblyName>
+        <RootNamespace>ProjectName.Dal.Core</RootNamespace>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <Folder Include="Services" />
+    </ItemGroup>
+    
+</Project>

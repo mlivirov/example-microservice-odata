@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd
+        http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+
+    <changeSet id="bl_01" author="mlivirov" context="test-data">
+        <loadData tableName="person" file="TestData/person.csv">
+            <column name="FirstName"/>
+            <column name="LastName"/>
+        </loadData>
+        <loadData tableName="address" file="TestData/address.csv">
+            <column name="Street"/>
+            <column name="City"/>
+            <column name="State"/>
+            <column name="Zip"/>
+        </loadData>
+        <sql>
+            declare @addressId int = (SELECT TOP (1) Id FROM Address)
+            INSERT INTO PersonAddress(PersonId, AddressId)
+            SELECT Id as PersonId, @addressId as AddressId FROM Person
+        </sql>
+    </changeSet>
+
+</databaseChangeLog>

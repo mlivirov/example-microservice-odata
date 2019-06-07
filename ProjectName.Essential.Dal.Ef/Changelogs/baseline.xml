@@ -1,0 +1,172 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd
+        http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+  
+  <changeSet id="baseline_00" author="max.livirov@gmail.com">
+    <createTable tableName="FileInfoRecord">
+      <column name="Id" type="int" autoIncrement="true">
+        <constraints
+                primaryKey="true"
+                primaryKeyName="PK_FileInfoRecord"/>
+      </column>
+      <column name="FileName" type="nvarchar(255)"/>
+      <column name="Size" type="bigint"/>
+      <column name="Uuid" type="uniqueidentifier" defaultValue="NEWID()">
+        <constraints
+                nullable="false"/>
+      </column>
+      <column name="IsShared" type="bit" defaultValue="0">
+        <constraints
+                nullable="false"/>
+      </column>
+    </createTable>
+    <createTable tableName="Address">
+      <column name="Id" type="int" autoIncrement="true">
+        <constraints
+                primaryKey="true"
+                primaryKeyName="PK_Address"/>
+      </column>
+      <column name="Street" type="nvarchar(255)"/>
+      <column name="City" type="nvarchar(255)"/>
+      <column name="State" type="nvarchar(255)"/>
+      <column name="Zip" type="nvarchar(32)"/>
+      <column name="Apt" type="nvarchar(255)"/>
+    </createTable>
+    <createTable tableName="Person">
+      <column name="Id" type="int" autoIncrement="true">
+        <constraints
+                primaryKey="true"
+                primaryKeyName="PK_Person"/>
+      </column>
+      <column name="FirstName" type="nvarchar(255)"/>
+      <column name="LastName" type="nvarchar(255)"/>
+      <column name="Email" type="nvarchar(255)"/>
+      <column name="Phone" type="nvarchar(255)"/>
+    </createTable>
+    <createTable tableName="PersonAddress">
+      <column name="Id" type="int" autoIncrement="true">
+        <constraints
+                primaryKey="true"
+                primaryKeyName="PK_PersonAddress"/>
+      </column>
+      <column name="PersonId" type="int">
+        <constraints
+                foreignKeyName="FK_PersonAddress_Person_PersonId"
+                referencedTableName="Person"
+                referencedColumnNames="Id"/>
+      </column>
+      <column name="AddressId" type="int">
+        <constraints
+                foreignKeyName="FK_PersonAddress_Address_AddressId"
+                referencedTableName="Address"
+                referencedColumnNames="Id"/>
+      </column>
+    </createTable>
+
+    <createView
+            replaceIfExists="true"
+            viewName="ContactView">
+      SELECT
+      Person.Id as PersonId,
+      PersonAddress.Id as AddressId,
+      CONCAT_WS(' ', Person.FirstName, Person.LastName) as FullName,
+      CONCAT_WS(' ,', Street, City, State, Zip) as FullAddress
+      FROM Person
+      LEFT JOIN (
+      SELECT TOP(1) PersonAddress.PersonId, Address.* FROM PersonAddress
+      INNER JOIN Address ON Address.Id = PersonAddress.AddressId
+      ) PersonAddress ON PersonAddress.PersonId = Person.Id
+    </createView>
+
+    <createTable tableName="UserRole">
+      <column name="Id" type="int" autoIncrement="true">
+        <constraints
+                primaryKey="true"
+                primaryKeyName="PK_UserRole"/>
+      </column>
+      <column name="RoleName" type="nvarchar(255)">
+        <constraints
+                nullable="false"
+                unique="true"/>
+      </column>
+    </createTable>
+
+    <createTable tableName="UserGroup">
+      <column name="Id" type="int" autoIncrement="true">
+        <constraints
+                primaryKey="true"
+                primaryKeyName="PK_UserGroup"/>
+      </column>
+      <column name="GroupName" type="nvarchar(255)">
+        <constraints
+                nullable="false"
+                unique="true"/>
+      </column>
+    </createTable>
+
+    <createTable tableName="UserGroupRole">
+      <column name="Id" type="int" autoIncrement="true">
+        <constraints
+                primaryKey="true"
+                primaryKeyName="PK_UserGroupRole"/>
+      </column>
+      <column name="UserGroupId" type="int">
+        <constraints
+                foreignKeyName="FK_UserGroupRole_UserGroup_UserGroupId"
+                referencedTableName="UserGroup"
+                referencedColumnNames="Id"/>
+      </column>
+      <column name="UserRoleId" type="int">
+        <constraints
+                foreignKeyName="FK_UserGroupRole_UserRole_UserRoleId"
+                referencedTableName="UserRole"
+                referencedColumnNames="Id"/>
+      </column>
+    </createTable>
+
+    <createTable tableName="UserAccount">
+      <column name="Id" type="int" autoIncrement="true">
+        <constraints
+                primaryKey="true"
+                primaryKeyName="PK_UserAccount"/>
+      </column>
+      <column name="UserName" type="nvarchar(255)">
+        <constraints
+                nullable="false"
+                unique="true"/>
+      </column>
+      <column name="PersonId" type="int">
+        <constraints
+                foreignKeyName="FK_UserAccount_Person"
+                referencedTableName="Person"
+                referencedColumnNames="Id"/>
+      </column>
+    </createTable>
+
+    <createTable tableName="UserAccountGroup">
+      <column name="Id" type="int" autoIncrement="true">
+        <constraints
+                primaryKey="true"
+                primaryKeyName="PK_UserAccountGroup"/>
+      </column>
+      <column name="UserAccountId" type="int">
+        <constraints
+                foreignKeyName="FK_UserAccountGroup_UserAccount_UserAccountId"
+                referencedTableName="UserAccount"
+                referencedColumnNames="Id"/>
+      </column>
+      <column name="UserGroupId" type="int">
+        <constraints
+                foreignKeyName="FK_UserAccountGroup_UserGroup_UserGroupId"
+                referencedTableName="UserGroup"
+                referencedColumnNames="Id"/>
+      </column>
+    </createTable>
+  </changeSet>
+
+</databaseChangeLog>

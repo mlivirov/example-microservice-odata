@@ -1,0 +1,14 @@
+version: '3.4'
+
+services:
+  data-service:
+    build:
+      context: ProjectName.DataService
+
+  report-service:
+    build:
+      context: ProjectName.ReportService
+
+  dashboard:
+    build:
+      context: ProjectName.Dashboard
