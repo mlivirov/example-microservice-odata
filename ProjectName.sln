@@ -18,6 +18,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectName.Essential.Dal.E
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectName.Essential.DataService", "ProjectName.Essential.DataService\ProjectName.Essential.DataService.csproj", "{A43D04C3-AC6B-4AE3-961F-E567D1F17034}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectName.Sso", "ProjectName.Sso\ProjectName.Sso.csproj", "{EC48228B-1945-4ACF-B4FE-DCD942F45CD4}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -56,6 +58,10 @@ Global
 		{A43D04C3-AC6B-4AE3-961F-E567D1F17034}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A43D04C3-AC6B-4AE3-961F-E567D1F17034}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A43D04C3-AC6B-4AE3-961F-E567D1F17034}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EC48228B-1945-4ACF-B4FE-DCD942F45CD4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EC48228B-1945-4ACF-B4FE-DCD942F45CD4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EC48228B-1945-4ACF-B4FE-DCD942F45CD4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EC48228B-1945-4ACF-B4FE-DCD942F45CD4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{B01DB63B-F082-444A-BD8B-E8D76EC16475} = {52C48510-A2B6-40F2-A861-A91AD9FF112B}

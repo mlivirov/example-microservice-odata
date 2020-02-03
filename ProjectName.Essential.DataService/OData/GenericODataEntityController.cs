@@ -10,6 +10,7 @@ using ProjectName.Essential.Dal.Ef.Extensions;
 namespace ProjectName.Essential.DataService.OData
 {
     [GenericODataControllerNameConvention]
+    [Authorize]
     public class GenericODataEntityController<T> : ODataController where T: class, IEntity 
     {
         private readonly IUnitOfWork _unitOfWork;
@@ -60,7 +61,7 @@ namespace ProjectName.Essential.DataService.OData
             }
 
             _createTrigger?.BeforeCreate(model);
-
+            
             _unitOfWork.Add(model);
             await _unitOfWork.SaveAsync();
             return Created(model);

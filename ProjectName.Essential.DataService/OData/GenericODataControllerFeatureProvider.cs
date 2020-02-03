@@ -1,5 +1,7 @@
 using System.Collections.Generic;
 using System.Reflection;
+using System.Reflection.Emit;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc.ApplicationParts;
 using Microsoft.AspNetCore.Mvc.Controllers;
 using ProjectName.Dal.Core;
@@ -12,6 +14,7 @@ namespace ProjectName.Essential.DataService.OData
         public void PopulateFeature(IEnumerable<ApplicationPart> parts, ControllerFeature feature)
         {
             var modelsAssembly = typeof(Person).Assembly;
+         
             foreach (var entityType in DatabaseHelper.GetEntityTypes(modelsAssembly))
             {
                 var controllerType = typeof(GenericODataEntityController<>)

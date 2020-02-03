@@ -9,7 +9,7 @@ namespace ProjectName.Essential.DataService.Application.Services
 {
     public class LocalFileStorage : IFileStorage
     {
-        public async Task<Guid> UploadAsync(IFileProxy file)
+        public Task<Guid> UploadAsync(IFileProxy file)
         {
             var uuid = Guid.NewGuid();
 
@@ -22,7 +22,7 @@ namespace ProjectName.Essential.DataService.Application.Services
                 }
             }
 
-            return uuid;
+            return Task.FromResult(uuid);
         }
 
         public Task<IFileProxy> DownloadAsync(Guid uuid)
